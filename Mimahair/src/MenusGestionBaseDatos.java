@@ -41,60 +41,60 @@ public class MenusGestionBaseDatos {
 //        }
 //    }
 
-    public static void menuOpciones() {
-        boolean isRunning = true;
+//    public static void menuOpciones() {
+//        boolean isRunning = true;
+//
+//        while (isRunning) {
+//            System.out.println("[- - - MIMAHAIR - - -]");
+//            System.out.println("*** MENU PRINCIPAL ***");
+//            System.out.println("1. Gestion de la cuenta");
+//            System.out.println("2. Solicitar nueva cita");
+//            System.out.println("3. Servicios disponibles");
+//            System.out.println("4. Volver atras");
+//            System.out.println("***********************");
+//
+//            System.out.print("\nSelecciona una opcion: ");
+//            int seleccion = inval.nextInt();
+//            inval.nextLine();
+//
+//            switch (seleccion) {
+//                case 1 -> menuGestionCuenta();
+//                case 2 -> GestionBaseDatos.solicitarCita(GestionBaseDatos.ANYO);
+//                case 3 -> GestionBaseDatos.listarServicios();
+//                case 4 -> {
+//                    System.out.println("Gracias por usar Mimahair!");
+//                    isRunning = false;
+//                }
+//            }
+//        }
+//    }
 
-        while (isRunning) {
-            System.out.println("[- - - MIMAHAIR - - -]");
-            System.out.println("*** MENU PRINCIPAL ***");
-            System.out.println("1. Gestion de la cuenta");
-            System.out.println("2. Solicitar nueva cita");
-            System.out.println("3. Servicios disponibles");
-            System.out.println("4. Volver atras");
-            System.out.println("***********************");
-
-            System.out.print("\nSelecciona una opcion: ");
-            int seleccion = inval.nextInt();
-            inval.nextLine();
-
-            switch (seleccion) {
-                case 1 -> menuGestionCuenta();
-                case 2 -> GestionBaseDatos.solicitarCita(GestionBaseDatos.ANYO);
-                case 3 -> GestionBaseDatos.listarServicios();
-                case 4 -> {
-                    System.out.println("Gracias por usar Mimahair!");
-                    isRunning = false;
-                }
-            }
-        }
-    }
-
-    public static void menuGestionCuenta() {
-        boolean isRunning = true;
-
-        while (isRunning) {
-            System.out.println("[- - - MIMAHAIR - - -]");
-            System.out.println("*** GESTION CUENTA ***");
-            System.out.println("1. Editar email"); // String
-            System.out.println("2. Cambiar contrasena"); // String
-            System.out.println("3. Modificar telefono"); // String
-            System.out.println("4. Gestoinar citas"); // Menu
-            System.out.println("5. Volver");
-            System.out.println("**********************");
-
-            System.out.print("\nSelecciona una opcion: ");
-            int opcion = inval.nextInt();
-            inval.nextLine();
-
-            switch (opcion) {
-                case 1 -> GestionBaseDatos.modificarEmail();
-                case 2 -> GestionBaseDatos.modificarContrasena();
-                case 3 -> GestionBaseDatos.modificarTlf();
-                case 4 -> menuGestionCita();
-                case 5 -> isRunning = false;
-            }
-        }
-    }
+//    public static void menuGestionCuenta() {
+//        boolean isRunning = true;
+//
+//        while (isRunning) {
+//            System.out.println("[- - - MIMAHAIR - - -]");
+//            System.out.println("*** GESTION CUENTA ***");
+//            System.out.println("1. Editar email"); // String
+//            System.out.println("2. Cambiar contrasena"); // String
+//            System.out.println("3. Modificar telefono"); // String
+//            System.out.println("4. Gestoinar citas"); // Menu
+//            System.out.println("5. Volver");
+//            System.out.println("**********************");
+//
+//            System.out.print("\nSelecciona una opcion: ");
+//            int opcion = inval.nextInt();
+//            inval.nextLine();
+//
+//            switch (opcion) {
+//                case 1 -> GestionBaseDatos.modificarEmail();
+//                case 2 -> GestionBaseDatos.modificarContrasena();
+//                case 3 -> GestionBaseDatos.modificarTlf();
+//                case 4 -> menuGestionCita();
+//                case 5 -> isRunning = false;
+//            }
+//        }
+//    }
 
     public static void menuGestionCita() {
         boolean isRunning = true;
