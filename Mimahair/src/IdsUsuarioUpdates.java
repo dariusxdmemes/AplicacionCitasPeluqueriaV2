@@ -92,7 +92,7 @@ public class IdsUsuarioUpdates {
         return idCliente;
     }
 
-    public static boolean sentenciaUpdateContrasena(int idCliente, String nuevaContrasena) {
+    public static boolean sentenciaUpdateContrasena(int idCliente, String contrasenaNueva) {
         String sql = "UPDATE clientes SET contrasena = ? WHERE id_cliente = ?";
         PreparedStatement pstmt = null;
         boolean estaActualizado = false;
@@ -100,7 +100,7 @@ public class IdsUsuarioUpdates {
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, nuevaContrasena);
+            pstmt.setString(1, contrasenaNueva);
             pstmt.setInt(2, idCliente);
 
             int filasActualizadas = pstmt.executeUpdate();
