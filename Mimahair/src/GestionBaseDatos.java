@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /* Esta clase maneja la logica de la gestion de la base de datos
@@ -81,10 +82,11 @@ public class GestionBaseDatos {
         }
     }
 
-    public static void listarServicios() {
+    public static ArrayList<String[]> listarServicios() {
         Statement stmt = null;
         ResultSet rs = null;
         Connection conn = null;
+        ArrayList<String[]> servicios = new ArrayList<>();
 
         try {
             conn = ConexionDesconexionBD.conexionBaseDatos();
@@ -94,8 +96,17 @@ public class GestionBaseDatos {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                System.out.print("\nServicio: "+rs.getString("nombre_servicio")+" Descripcion: "+rs.getString("descrip")+" "+
-                        "Precio: "+rs.getDouble("precio_servicio")+" €\n");
+                String nombreServicio = rs.getString("nombre_servicio");
+                String descripServicio = rs.getString("descrip");
+                double precioServicio = rs.getDouble("precio_servicio");
+
+                String[] servicio = {
+                        nombreServicio,
+                        descripServicio,
+                        String.format("%.2f €", precioServicio)
+                };
+
+                servicios.add(servicio);
             }
         } catch (Exception e) {
             System.out.println("Error al consultar los datos "+e.getMessage());
@@ -108,22 +119,18 @@ public class GestionBaseDatos {
                 System.out.println(ex.getMessage());
             }
         }
+        return servicios;
     }
 
-    public static void modificarEmail() {
-        System.out.print("Introduce tu email actual: ");
-        String emailActual = inval.nextLine();
-
+    public static void modificarEmail(String emailActual, String emailNuevo) {
         int idCliente = IdsUsuarioUpdates.getIdUsuarioEmail(emailActual);
 
         if (idCliente == -1) {
             System.out.println("No existe ningun usuario con ese email!");
         }
 
-        System.out.print("Introduce el nuevo email: ");
-        String nuevoEmail = inval.nextLine();
 
-        boolean actualizado = IdsUsuarioUpdates.sentenciaUpdateEmail(idCliente, nuevoEmail);
+        boolean actualizado = IdsUsuarioUpdates.sentenciaUpdateEmail(idCliente, emailNuevo);
 
         if (actualizado) {
             System.out.println("Email modificado correctamente!");
@@ -132,20 +139,14 @@ public class GestionBaseDatos {
         }
     }
 
-    public static void modificarContrasena() {
-        System.out.print("Introduce tu contrasena actual: ");
-        String contrasenaActual = inval.nextLine();
-
+    public static void modificarContrasena(String contrasenaActual, String contrasenaNueva) {
         int idCliente = IdsUsuarioUpdates.getIdUsuarioContrasena(contrasenaActual);
 
         if (idCliente == -1) {
             System.out.println("Contrasena incorrecta!");
         }
 
-        System.out.print("Introduce la nueva contrasena: ");
-        String nuevaContrasena = inval.nextLine();
-
-        boolean actualizado = IdsUsuarioUpdates.sentenciaUpdateContrasena(idCliente, nuevaContrasena);
+        boolean actualizado = IdsUsuarioUpdates.sentenciaUpdateContrasena(idCliente, contrasenaNueva);
 
         if (actualizado) {
             System.out.println("Contrasena modificada correctamente!");
@@ -285,5 +286,37 @@ public class GestionBaseDatos {
                 System.out.println(ex.getMessage());
             }
         }
+    }
+    public static String seleccionarNombreUsuario() {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Connection conn = null;
+        String nombreCliente="";
+
+        try {
+            conn = ConexionDesconexionBD.conexionBaseDatos();
+
+            String sql = "SELECT nombre FROM clientes WHERE id_cliente = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idClienteLogged);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                nombreCliente = rs.getString("nombre");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al consultar datos: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (rs != null) rs.close();
+                ConexionDesconexionBD.desconexionBaseDatos(conn);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return nombreCliente;
     }
 }
